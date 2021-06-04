@@ -1,10 +1,16 @@
 'use strict';
-
 const express = require('express');
 const PORT = process.env.PORT || 4001;
 const server = express();
 const bodyParser = require("body-parser");
 const expressWs = require('express-ws')(server);
+
+const {
+  conversation,
+} = require('@assistant/conversation')
+
+// Create an app instance
+const app = conversation()
 
 var g_query = '';
 var g_resp = '';
@@ -72,46 +78,12 @@ function myfunction(query, resp) {
 
 server.post("/webhook", function (req, res) {
     console.log('echo');
-    var q_text = req.body.queryResult.queryText;
-    if (q_text.includes("what")) {
-        myfunction("?", null)
-        if (g_resp != '') {
-            var speech = 'It is currently ' + g_resp.substring(9);
-        }
-        else { var speech = 'Sorry! I am unable to reach your device. Please check your device connectivity and try again.' }
-
-    }
-    else {
-        myfunction('CMD:' + req.body.queryResult.parameters.state, null)
-
-        var speech =
-            ws_client.length != 0 && g_resp != ''
-                ? "It is turned " + req.body.queryResult.parameters.state : "Sorry! I am unable to reach your device. Please check your device connectivity and try again.";
-    }
-
-
-    var speechResponse = {
-        google: {
-            expectUserResponse: true,
-            richResponse: {
-                items: [
-                    {
-                        simpleResponse: {
-                            textToSpeech: speech
-                        }
-                    }
-                ]
-            }
-        }
-    };
-
-    return res.json({
-        payload: speechResponse,
-        data: speechResponse,
-        fulfillmentText: "Sample text response",
-        speech: speech,
-        displayText: speech,
-        source: "webhook-echo-sample"
-    });
-});
+ app.handle('Simple', conv => {
+  conv.add(new Simple({
+    speech: 'This is the first simple response.',
+    text: 'This is the 1st simple response.'
+  }));
+    
+    
+    
 server.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => console.log(`webhook Listening on ${PORT}`))
