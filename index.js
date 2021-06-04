@@ -78,12 +78,7 @@ function myfunction(query, resp) {
 
 server.post("/webhook", function (req, res) {
     console.log('echo');
- app.handle('Simple', conv => {
-  conv.add(new Simple({
-    speech: 'This is the first simple response.',
-    text: 'This is the 1st simple response.'
-  }));
-    
+
     
  }); 
 server.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => console.log(`webhook Listening on ${PORT}`))
