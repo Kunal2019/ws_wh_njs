@@ -7,10 +7,10 @@ const expressWs = require('express-ws')(server);
 
 const {
   conversation,
-} = require('@assistant/conversation')
+} = require('@assistant/conversation');
 
 // Create an app instance
-const app = conversation()
+const app = conversation();
 
 var g_query = '';
 var g_resp = '';
@@ -85,5 +85,5 @@ server.post("/webhook", function (req, res) {
   }));
     
     
-    
+ }); 
 server.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => console.log(`webhook Listening on ${PORT}`))
