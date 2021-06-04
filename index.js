@@ -78,13 +78,25 @@ function myfunction(query, resp) {
 
 server.post("/webhook", function (req, res) {
     console.log('echo');
-  app.handle('Simple', conv => {
-  conv.add(new Simple({
-    speech: 'This is the first simple response.',
-    text: 'This is the 1st simple response.'
-  }));
-    });
-
+  {
+  "responseJson": {
+    "session": {
+      "id": "session_id",
+      "params": {}
+    },
+    "prompt": {
+      "override": false,
+      "firstSimple": {
+        "speech": "This is the first simple response.",
+        "text": "This is the 1st simple response."
+      },
+      "lastSimple": {
+        "speech": "This is the last simple response.",
+        "text": "This is the last simple response."
+      }
+    }
+  }
+}
     
  }); 
 server.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => console.log(`webhook Listening on ${PORT}`))
