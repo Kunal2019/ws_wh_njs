@@ -19,5 +19,6 @@
         "body-parser": "^1.15.0",
         "ws": "7.1.0",
         "express-ws": "4.0.0"
+        "@assistant/conversation"
     }
 }
