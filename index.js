@@ -78,7 +78,7 @@ function myfunction(query, resp) {
 
 server.post("/webhook", function (req, res) {
     console.log('echo');
-  {
+  var speechResponse = {
   "responseJson": {
     "session": {
       "id": "session_id",
